@@ -51,15 +51,42 @@ endif()
 # C++11 support
 ##############################################################################
 include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)
 CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
 CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-if(COMPILER_SUPPORTS_CXX11)
+
+if(COMPILER_SUPPORTS_CXX14)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+elseif(COMPILER_SUPPORTS_CXX11)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 elseif(COMPILER_SUPPORTS_CXX0X)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 else()
     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Some functionality will not be available.")
 endif()
+
+##############################################################################
+# targets: python
+##############################################################################
+
+option(WITH_PYTHON OFF)
+if(WITH_PYTHON)
+
+    # we need c++ 14 support for python bindings to support xtensor
+    if(NOT COMPILER_SUPPORTS_CXX14)
+        message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++14 support. Python bindings are not supported.")
+    endif()
+    
+    find_package(pybind11 REQUIRED)
+    set(PYBIND11_CPP_STANDARD -std=c++14)
+    
+    find_package(NumPy REQUIRED)
+    include_directories(${NUMPY_INCLUDE_DIRS})
+    message(STATUS "Using numpy from ${NUMPY_INCLUDE_DIRS}")
+
+    add_subdirectory(src/python)
+endif()
+
 
 ##############################################################################
 # targets: graph
