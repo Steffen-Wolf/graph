@@ -14,9 +14,11 @@ namespace multicut {
     void export_greedy_fixation(py::module & module) {
         module.def("greedy_fixation", [](const Graph<> & graph,
                                          const xt::pytensor<double, 1> & edge_values) {
-            // TODO should we do a consistency check that number 
+            // TODO should we do a consistency check that number
             // of edges in graph and edge values agree ?
-            const int64_t n_edges = graph.numberOfEdges();
+            // TODO hacked in node labels for convenience
+            // const int64_t n_edges = graph.numberOfEdges();
+            const int64_t n_edges = graph.numberOfVertices();
             xt::pytensor<char, 1> edge_labels = xt::zeros<char>({n_edges});
             py::gil_scoped_release allow_threads;
             {
