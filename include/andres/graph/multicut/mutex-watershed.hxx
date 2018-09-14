@@ -140,8 +140,12 @@ void mutexWatershed(
         }
     }
 
-    for (size_t i = 0; i < n_edges; ++i)
-        edge_labels[i] = partition.find(graph.vertexOfEdge(i, 0)) == partition.find(graph.vertexOfEdge(i, 1)) ? 0 : 1;
+    // for (std::size_t i = 0; i < n_edges; ++i)
+    //     edge_labels[i] = partition.find(graph.vertexOfEdge(i, 0)) == partition.find(graph.vertexOfEdge(i, 1)) ? 0 : 1;
+
+    // TODO hacked in node labels for convinience
+    for(std::size_t i = 0; i < n_vertices; ++i)
+        edge_labels[i] = partition.find(i);
 }
 
 

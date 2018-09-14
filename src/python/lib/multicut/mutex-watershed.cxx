@@ -14,7 +14,9 @@ namespace multicut {
     void export_mutex_watershed(py::module & module) {
         module.def("mutex_watershed", [](const Graph<> & graph,
                                          const xt::pytensor<double, 1> & edge_values) {
-            const int64_t n_edges = graph.numberOfEdges();
+            // TODO hacked in node labels for convinience
+            // const int64_t n_edges = graph.numberOfEdges();
+            const int64_t n_edges = graph.numberOfVertices();
             xt::pytensor<char, 1> edge_labels = xt::zeros<char>({n_edges});
             py::gil_scoped_release allow_threads;
             {
