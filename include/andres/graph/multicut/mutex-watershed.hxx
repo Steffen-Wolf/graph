@@ -99,7 +99,7 @@ void mutexWatershed(
     andres::Partition<std::size_t> partition(n_vertices);
 
     // iterate over the sorted edges
-    for(const size_t edge_id : indices) {
+    for(const std::size_t edge_id : indices) {
 
         // check whether this edge is a repulsive edge (a.k.a mutex edge)
         // via the sign of its value
@@ -141,7 +141,7 @@ void mutexWatershed(
     }
 
     for (size_t i = 0; i < n_edges; ++i)
-        edge_labels[i] = partition.find(graph.vertexOfEdge(i, 0)) == partition.find(graph.vertexOfEdge(i, 1));
+        edge_labels[i] = partition.find(graph.vertexOfEdge(i, 0)) == partition.find(graph.vertexOfEdge(i, 1)) ? 0 : 1;
 }
 
 
