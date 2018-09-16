@@ -17,7 +17,8 @@ namespace multicut {
             // TODO hacked in node labels for convinience
             // const int64_t n_edges = graph.numberOfEdges();
             const int64_t n_edges = graph.numberOfVertices();
-            xt::pytensor<char, 1> edge_labels = xt::zeros<char>({n_edges});
+            // xt::pytensor<char, 1> edge_labels = xt::zeros<char>({n_edges});
+            xt::pytensor<uint32_t, 1> edge_labels = xt::zeros<char>({n_edges});
             py::gil_scoped_release allow_threads;
             {
                 mutexWatershed(graph, edge_values, edge_labels);
