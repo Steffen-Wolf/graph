@@ -9,6 +9,7 @@ namespace andres {
 namespace graph {
 namespace multicut {
     void export_greedy_fixation(py::module &);
+    void export_greedy_additive(py::module &);
     void export_mutex_watershed(py::module &);
 }
 }
@@ -22,5 +23,6 @@ PYBIND11_MODULE(_multicut, module) {
 
     using namespace andres::graph::multicut;
     export_greedy_fixation(module);
+    export_greedy_additive(module);
     export_mutex_watershed(module);
 }

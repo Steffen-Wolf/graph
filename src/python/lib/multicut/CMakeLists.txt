@@ -4,5 +4,6 @@ addPythonModule(
     SOURCES
         multicut.cxx
         greedy-fixation.cxx
+        greedy-additive.cxx
         mutex-watershed.cxx
 )

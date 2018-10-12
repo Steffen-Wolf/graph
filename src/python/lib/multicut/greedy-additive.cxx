@@ -1,0 +1,32 @@
+#include <pybind11/pybind11.h>
+#include "xtensor-python/pytensor.hpp"
+
+#include "andres/graph/graph.hxx"
+#include "andres/graph/multicut/greedy-additive.hxx"
+
+namespace py = pybind11;
+
+
+namespace andres {
+namespace graph {
+namespace multicut {
+
+    void export_greedy_additive(py::module & module) {
+        module.def("greedy_additive", [](const Graph<> & graph,
+                                         const xt::pytensor<double, 1> & edge_values) {
+            // TODO should we do a consistency check that number
+            // of edges in graph and edge values agree ?
+            // TODO hacked in node labels for convenience
+            // const int64_t n_edges = graph.numberOfEdges();
+            const int64_t n_edges = graph.numberOfVertices();
+            xt::pytensor<char, 1> edge_labels = xt::zeros<char>({n_edges});
+            py::gil_scoped_release allow_threads;
+            {
+                greedyAdditiveEdgeContraction(graph, edge_values, edge_labels);
+            }
+            return edge_labels;
+        }, py::arg("graph"), py::arg("edge_values"));
+    }
+}
+}
+}

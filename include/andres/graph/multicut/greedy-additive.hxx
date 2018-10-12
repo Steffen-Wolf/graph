@@ -143,8 +143,11 @@ void greedyAdditiveEdgeContraction(
         original_graph_cp.removeVertex(merge_vertex);
     }
 
-    for (size_t i = 0; i < graph.numberOfEdges(); ++i)
-        edge_labels[i] = partition.find(graph.vertexOfEdge(i, 0)) == partition.find(graph.vertexOfEdge(i, 1)) ? 0 : 1;
+    // FIXME hacked in node labels for convenience
+    // for (size_t i = 0; i < graph.numberOfEdges(); ++i)
+    //     edge_labels[i] = partition.find(graph.vertexOfEdge(i, 0)) == partition.find(graph.vertexOfEdge(i, 1)) ? 0 : 1;
+    for (size_t i = 0; i < graph.numberOfVertices(); ++i)
+        edge_labels[i] = partition.find(i);
 }
 
 } // namespace multicut
