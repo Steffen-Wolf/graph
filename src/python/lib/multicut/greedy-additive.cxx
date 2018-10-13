@@ -19,7 +19,7 @@ namespace multicut {
             // TODO hacked in node labels for convenience
             // const int64_t n_edges = graph.numberOfEdges();
             const int64_t n_edges = graph.numberOfVertices();
-            xt::pytensor<char, 1> edge_labels = xt::zeros<char>({n_edges});
+            xt::pytensor<uint32_t, 1> edge_labels = xt::zeros<uint32_t>({n_edges});
             py::gil_scoped_release allow_threads;
             {
                 greedyAdditiveEdgeContraction(graph, edge_values, edge_labels);
