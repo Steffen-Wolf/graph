@@ -24,7 +24,7 @@ namespace multicut {
             // warmstart KL with one cluster per node
             std::vector<uint64_t> edge_labels = std::vector<uint64_t>(n_edges);
             int k = 0;
-            std::fill(edge_labels.begin(), edge_labels.end(), k++);
+            std::iota(std::begin(edge_labels), std::end(edge_labels), k++);
 
             xt::pytensor<uint64_t, 1> edge_labels_exp = xt::zeros<char>({n_edges});
             py::gil_scoped_release allow_threads;
