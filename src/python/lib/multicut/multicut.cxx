@@ -11,6 +11,7 @@ namespace multicut {
     void export_greedy_fixation(py::module &);
     void export_greedy_additive(py::module &);
     void export_mutex_watershed(py::module &);
+    void export_kernighan_lin(py::module &);
 }
 }
 }
@@ -25,4 +26,5 @@ PYBIND11_MODULE(_multicut, module) {
     export_greedy_fixation(module);
     export_greedy_additive(module);
     export_mutex_watershed(module);
+    export_kernighan_lin(module);
 }

@@ -6,4 +6,5 @@ addPythonModule(
         greedy-fixation.cxx
         greedy-additive.cxx
         mutex-watershed.cxx
+        kernighan-lin.cxx
 )
