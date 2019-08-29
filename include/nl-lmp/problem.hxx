@@ -20,7 +20,8 @@ public:
 
     Problem(size_t numberOfVertices, size_t numberOfClasses)
     {
-        unaryCosts_.resize({ numberOfVertices, numberOfClasses });
+        const std::vector<size_t> new_shape({ numberOfVertices, numberOfClasses });
+        unaryCosts_.resize(new_shape.begin(), new_shape.end());
 
         original_graph_.assign(numberOfVertices);
         lifted_graph_.assign(numberOfVertices);

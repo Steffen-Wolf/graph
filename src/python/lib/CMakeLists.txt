@@ -6,3 +6,4 @@ addPythonModule(
 )
 
 add_subdirectory(multicut)
+add_subdirectory(nl-lmp)
