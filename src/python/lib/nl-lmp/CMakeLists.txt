@@ -3,5 +3,9 @@ addPythonModule(
         graph/nl_lmp
     SOURCES
         nl-lmp.cxx
+        problem.cxx
+        solution.cxx
         solve-joint.cxx
+        solve-alternating.cxx
+        greedy-additive.cxx
 )
