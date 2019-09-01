@@ -24,36 +24,38 @@ namespace nl_lmp {
                                        const NodeVector & ls,
                                        const CostVector & costs){
                 py::gil_scoped_release lift_gil;
-                for(size_t i = 0; i < us.size(); ++i) {
+                for(size_t i = 0; i < us.shape()[0]; ++i) {
                     self.setUnaryCost(us(i), ls(i), costs(i));
                 }
             }, py::arg("nodes"), py::arg("labels"), py::arg("costs"))
             //
             .def("set_pairwise_cut_costs", [](P & self,
-                                              const NodeVector & uvs,
-                                              const NodeVector & lms,
+                                              const EdgeVector & uvs,
+                                              const EdgeVector & lms,
                                               const CostVector & costs,
                                               const bool add_edge_into_original_graph){
                 py::gil_scoped_release lift_gil;
-                for(size_t i = 0; i < uvs.size(); ++i) {
+                for(size_t i = 0; i < uvs.shape()[0]; ++i) {
                     self.setPairwiseCutCost(uvs(i, 0), uvs(i, 1),
                                             lms(i, 0), lms(i, 1),
                                             costs(i), add_edge_into_original_graph);
                 }
-            }, py::arg("uvs"), py::arg("labels"), py::arg("costs"), py::arg("add_edge_into_original_graph")=true)
+            }, py::arg("uvs"), py::arg("labels"), py::arg("costs"),
+               py::arg("add_edge_into_original_graph")=true)
             //
             .def("set_pairwise_join_costs", [](P & self,
-                                              const NodeVector & uvs,
-                                              const NodeVector & lms,
+                                              const EdgeVector & uvs,
+                                              const EdgeVector & lms,
                                               const CostVector & costs,
                                               const bool add_edge_into_original_graph){
                 py::gil_scoped_release lift_gil;
-                for(size_t i = 0; i < uvs.size(); ++i) {
+                for(size_t i = 0; i < uvs.shape()[0]; ++i) {
                     self.setPairwiseJoinCost(uvs(i, 0), uvs(i, 1),
                                              lms(i, 0), lms(i, 1),
                                              costs(i), add_edge_into_original_graph);
                 }
-            }, py::arg("uvs"), py::arg("labels"), py::arg("costs"), py::arg("add_edge_into_original_graph")=true)
+            }, py::arg("uvs"), py::arg("labels"), py::arg("costs"),
+               py::arg("add_edge_into_original_graph")=true)
         ;
     }
 }
