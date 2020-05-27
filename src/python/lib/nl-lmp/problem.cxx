@@ -29,6 +29,36 @@ namespace nl_lmp {
                 }
             }, py::arg("nodes"), py::arg("labels"), py::arg("costs"))
             //
+            .def("set_labelindependent_pairwise_join_costs", [](P & self,
+                                              const EdgeVector & uvs,
+                                              const CostVector & costs,
+                                              const bool add_edge_into_original_graph){
+                py::gil_scoped_release lift_gil;
+                for(size_t i = 0; i < uvs.shape()[0]; ++i) {
+                  for(size_t j = 0; j < self.numberOfClasses(); ++j) {
+                    for(size_t k = 0; k < self.numberOfClasses(); ++k) {
+                      self.setPairwiseJoinCost(uvs(i, 0), uvs(i, 1), j, k,
+                                            costs(i), add_edge_into_original_graph);
+		    }
+		  }
+                }
+            }, py::arg("uvs"), py::arg("costs"),
+               py::arg("add_edge_into_original_graph")=true)
+            .def("set_labelindependent_pairwise_cut_costs", [](P & self,
+                                              const EdgeVector & uvs,
+                                              const CostVector & costs,
+                                              const bool add_edge_into_original_graph){
+                py::gil_scoped_release lift_gil;
+                for(size_t i = 0; i < uvs.shape()[0]; ++i) {
+                  for(size_t j = 0; j < self.numberOfClasses(); ++j) {
+                    for(size_t k = 0; k < self.numberOfClasses(); ++k) {
+                      self.setPairwiseCutCost(uvs(i, 0), uvs(i, 1), j, k,
+                                            costs(i), add_edge_into_original_graph);
+		    }
+		  }
+                }
+            }, py::arg("uvs"), py::arg("costs"),
+               py::arg("add_edge_into_original_graph")=true)
             .def("set_pairwise_cut_costs", [](P & self,
                                               const EdgeVector & uvs,
                                               const EdgeVector & lms,
